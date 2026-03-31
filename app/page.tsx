@@ -1,27 +1,8 @@
 import { PageTabs } from '@/components/PageTabs';
-import { type Week } from '@/lib/data';
-import { type ShoppingSection } from '@/lib/shopping';
+import { weeks } from '@/lib/data';
+import { shoppingSections } from '@/lib/shopping';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000';
-
-async function getWeeks(): Promise<Week[]> {
-  const res = await fetch(`${BASE_URL}/api/weeks`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Falha ao carregar semanas');
-  return res.json();
-}
-
-async function getShopping(): Promise<ShoppingSection[]> {
-  const res = await fetch(`${BASE_URL}/api/shopping`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Falha ao carregar lista de compras');
-  return res.json();
-}
-
-export default async function Home() {
-  const [weeks, shoppingSections] = await Promise.all([
-    getWeeks(),
-    getShopping(),
-  ]);
-
+export default function Home() {
   return (
     <main className='min-h-screen bg-background px-6 py-10 lg:px-12'>
       <div className='mx-auto max-w-[1400px]'>
